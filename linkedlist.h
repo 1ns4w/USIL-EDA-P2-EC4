@@ -13,7 +13,7 @@ class LinkedList
   typename Type::T T;
   struct Node
   {
-      T data;
+      Type data;
       Node *m_pNext;
       Node(T &_data, Node *pNext=nullptr) 
           : data(_data), m_pNext(pNext) {}
@@ -30,7 +30,7 @@ class LinkedList
   {
     public:
     iterator operator++();
-    T &operator*();
+    Type &operator*();
     bool operator != (iterator &other);
   };
   
@@ -79,7 +79,7 @@ void LinkedList<Type>::insert2(T &elem)
 
 //forma 2 continuidad
 template <typename Type>
-void LinkedList<Type>::internal_insert(RPNODE pPrev, T &elem)
+void LinkedList<Type>::internal_insert(RPNODE pPrev, Type &elem)
 {
   if(!pPrev || elem < pPrev->getData())
   {
