@@ -6,6 +6,8 @@
 #include "myof.h"
 using namespace std;
 
+//Hecho por Kevin De Lama
+//Hecho por Jose Terrones
 
 template <typename Iterator>
 void recorrer1(Iterator begin, Iterator end, ostream &os)
@@ -132,11 +134,20 @@ void listas_demo()
 {
   LinkedList<Integer> list1;
   LinkedList<Float> list2;
-  
+  int x=10, y=9;
+  float z=20.1, ak=12.5;
+  list1.insert2(x);
+  list1.insert2(y);
+  cout<<list1<<endl;
+
+  list2.insert2(z);
+  list2.insert2(ak);
+  cout<<list2<<endl;
 }
 
 int main()
 {
+
   //vectores();
   listas_demo();
   return 0;
