@@ -128,11 +128,15 @@ int vectores()
 	return 0;
 }
 
+//IMPRIMIENDO DATOS DE LIST1
 void listas_demo()
 {
   LinkedList<Integer> list1;
   LinkedList<Float> list2;
   
+    for (T1 q=0; q < 20; q++)
+    list1.insert2(q);
+    cout<<list1<<endl;      
 }
 
 int main()
