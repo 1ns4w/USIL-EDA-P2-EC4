@@ -10,7 +10,7 @@ template <typename Type>
 class LinkedList
 {
   private:
-  typename Type::T T;
+  typedef typename Type::T T;
   struct Node
   {
       T data;
@@ -23,6 +23,8 @@ class LinkedList
       void   setpNext(Node *pNext){ m_pNext = pNext;}
   };
   Node *m_pRoot = nullptr;
+  Node *m_pFinal = nullptr; //Se agrega un puntero al nodo final de la lista
+  //Para realizar inserciones
   typedef Node *PNODE;
   typedef PNODE &RPNODE;
 
@@ -58,15 +60,75 @@ class LinkedList
                             // Buscar object functions
 };
 
+template <typename Type>
+typename Type::T LinkedList<Type>::front(){
+  return m_pRoot -> getData();
+}
+
+template<typename Type>
+typename Type::T LinkedList<Type>::back(){
+  return m_pFinal -> getData();
+}
+
+template<typename Type>
+void LinkedList<Type>::push_front(T &elem){
+  Node *pNewNode=new Node(elem, m_pRoot);
+  if(!m_pRoot){
+    m_pFinal = pNewNode;
+  }
+  m_pRoot = pNewNode;
+}
+
+template<typename Type>
+void LinkedList<Type>::push_back(T &elem){
+  Node *pNewNode = new Node(elem);
+  if(!m_pRoot){
+    m_pRoot = pNewNode;
+  } else{
+    m_pFinal->setpNext(pNewNode);
+  }
+  m_pFinal = pNewNode;
+}
+
+template<typename Type>
+void LinkedList<Type>::pop_front(){
+  if(m_pRoot){
+    //Cuando solo existe 1 nodo
+    if(m_pRoot == m_pFinal){
+      m_pFinal = nullptr;
+    }
+    m_pRoot->setpNext(m_pRoot->getpNext());    
+  }
+}
+
+template<typename Type>
+void LinkedList<Type>::pop_back(){
+  if(m_pRoot){
+    if(m_pRoot == m_pFinal){
+      m_pRoot = nullptr;
+      m_pFinal = nullptr;
+    } else{
+      Node **pPrev = &m_pRoot;
+      while(*pPrev && (*pPrev)->getpNext() != m_pFinal)
+      {   pPrev = &(*pPrev)->getpNext();}
+      *pPrev->setpNext(nullptr);
+      m_pFinal = *pPrev;
+    }
+  }
+}
+
 //forma 1
 template <typename Type>
-void LinkedList<Type>::insert(T &elem)
+void LinkedList<Type>::insert(typename Type::T &elem)
 {
   Node **pPrev = &m_pRoot;
   while(*pPrev && Type::Operation(elem, (*pPrev)->getData()) )
   {   pPrev = &(*pPrev)->getpNext();  }
 
   Node *pNewNode=new Node(elem, *pPrev);
+  if(!*pPrev){
+    m_pFinal = pNewNode; 
+  }
   *pPrev = pNewNode;
 }
 
@@ -84,6 +146,9 @@ void LinkedList<Type>::internal_insert(RPNODE pPrev, T &elem)
   if(!pPrev || elem < pPrev->getData())
   {
     Node *pNewNode = new Node(elem, pPrev);
+    if(!*pPrev){
+      m_pFinal = pNewNode;
+    }
     pPrev = pNewNode;
     return;
   }
@@ -104,7 +169,7 @@ ostream &LinkedList<Type>::recorrer_imprimiendo(ostream &os)
 
 template <typename Type>
 template <typename F>
-void &LinkedList<Type>::recorrer(F &func)
+void LinkedList<Type>::recorrer(F &func)
 {
   auto pNode = m_pRoot;
   while( pNode != nullptr )
@@ -112,11 +177,10 @@ void &LinkedList<Type>::recorrer(F &func)
       func( pNode->getData() );
       pNode = pNode->getpNext();
   }
-  return os; 
 }
 //forma 1
 template <typename Type>
-Type::T &LinkedList<Type>::operator[](size_t pos)
+typename Type::T &LinkedList<Type>::operator[](size_t pos)
 {
   Node **pPrev = &m_pRoot;
   for(size_t i = 0; i < pos ; i++)
