@@ -1,7 +1,7 @@
 template <typename T>
 struct Greater
 {
-  bool operator()(T a, T b)
+  bool operator()(const T &a,const T &b)
   {  return a >= b;
   }
 };
@@ -15,7 +15,7 @@ struct Integer
 template <typename T>
 struct Less
 {
-  bool operator()(T a, T b)
+  bool operator()(const T &a, const T& b)
   { return a <= b;    
   }
 };
