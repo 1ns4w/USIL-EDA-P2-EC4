@@ -5,10 +5,10 @@
 #include <iostream>
 #include <vector>
 #include <Container>
-#include "type.h"
+#include <types.h>
 
 template <typename Iterator>
-void recorrer1(Iterator begin, Iterator end, ostream &os)
+void recorrer1(Iterator begin, Iterator end, iostream &os)
 {
 	while (begin != end) 
   {
@@ -45,7 +45,7 @@ void incrementar(T &val) //int cambiado por T1 - MaizoDiego
 }
 
 template <typename Container>
-void print(Container &container, ostream &os)
+void print(Container &container, iostream &os)
 {
 	auto begin = container.begin();
 	while (begin != container.end())
