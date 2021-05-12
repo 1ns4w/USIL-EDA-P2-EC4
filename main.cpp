@@ -132,7 +132,10 @@ void listas_demo()
 {
   LinkedList<Integer> list1;
   LinkedList<Float> list2;
-  
+
+  for (T1 x=0; x < 20; x++)
+    list1.insert2(x);
+  cout<<list1<<endl;      
 }
 
 int main()
