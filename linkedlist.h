@@ -6,6 +6,8 @@
 // #include <vector>
 using namespace std;
 
+//Kevin De Lama y Jose Terrones
+
 template <typename Type>
 class LinkedList
 {
@@ -13,12 +15,12 @@ class LinkedList
   typename Type::T T;
   struct Node
   {
-      T data;
+      typename Type::T data;
       Node *m_pNext;
-      Node(T &_data, Node *pNext=nullptr) 
+      Node(typename Type::T &_data, Node *pNext=nullptr) 
           : data(_data), m_pNext(pNext) {}
       typename Type::T  &getData()            { return data; }
-      void   setData(T &_data)    { data = _data;}
+      void   setData(typename Type::T &_data)    { data = _data;}
       Node *&getpNext()           { return m_pNext; }
       void   setpNext(Node *pNext){ m_pNext = pNext;}
   };
@@ -30,22 +32,22 @@ class LinkedList
   {
     public:
     iterator operator++();
-    T &operator*();
+    typename Type::T &operator*();
     bool operator != (iterator &other);
   };
   
   // members here
   public:
-    T front(); // Retorna el elemento al comienzo
-    T back(); // Retorna el elemento al final
-    void push_front(T &elem); // Agrega un elemento al comienzo 
-    void push_back(T &elem); // Agrega un elemento al final
+    typename Type::T front(); // Retorna el elemento al comienzo
+    typename Type::T back(); // Retorna el elemento al final
+    void push_front(typename Type::T &elem); // Agrega un elemento al comienzo 
+    void push_back(typename Type::T &elem); // Agrega un elemento al final
     void pop_front(); // Remueve el elemento al comienzo pero no lo retorna
-    void insert(T &elem);
-    void insert2(T &elem);
-    void internal_insert(RPNODE pPrev, T &elem);
+    void insert(typename Type::T &elem);
+    void insert2(typename Type::T &elem);
+    void internal_insert(RPNODE pPrev, typename Type::T &elem);
     void pop_back(); // Remueve el elemento al final pero no lo retorna
-    T &operator[](size_t pos); // Retorna el elemento en la posición indicada
+    typename Type::T &operator[](size_t pos); // Retorna el elemento en la posición indicada
     bool empty(); // Retorna si la lista está vacía o no
     size_t size(); // Retorna el tamaño de la lista 
     void clear(); // Elimina todos los elementos de la lista
@@ -60,7 +62,7 @@ class LinkedList
 
 //forma 1
 template <typename Type>
-void LinkedList<Type>::insert(T &elem)
+void LinkedList<Type>::insert(typename Type::T &elem)
 {
   Node **pPrev = &m_pRoot;
   while(*pPrev && Type::Operation(elem, (*pPrev)->getData()) )
@@ -72,14 +74,14 @@ void LinkedList<Type>::insert(T &elem)
 
 //forma 2
 template <typename Type>
-void LinkedList<Type>::insert2(T &elem)
+void LinkedList<Type>::insert2(typename Type::T &elem)
 {
   internal_insert(m_pRoot, elem);
 }
 
 //forma 2 continuidad
 template <typename Type>
-void LinkedList<Type>::internal_insert(RPNODE pPrev, T &elem)
+void LinkedList<Type>::internal_insert(RPNODE pPrev, typename Type::T &elem)
 {
   if(!pPrev || elem < pPrev->getData())
   {
@@ -104,19 +106,18 @@ ostream &LinkedList<Type>::recorrer_imprimiendo(ostream &os)
 
 template <typename Type>
 template <typename F>
-void &LinkedList<Type>::recorrer(F &func)
+void LinkedList<Type>::recorrer(F &func)
 {
   auto pNode = m_pRoot;
   while( pNode != nullptr )
   {
       func( pNode->getData() );
       pNode = pNode->getpNext();
-  }
-  return os; 
+  } 
 }
 //forma 1
 template <typename Type>
-Type::T &LinkedList<Type>::operator[](size_t pos)
+typename Type::T &LinkedList<Type>::operator[](size_t pos)
 {
   Node **pPrev = &m_pRoot;
   for(size_t i = 0; i < pos ; i++)
@@ -139,6 +140,6 @@ T &LinkedList<T>::operator[](size_t pos)
 template <typename Type>
 ostream &operator<<(ostream &os, LinkedList<Type> &lista)
 {
-  return lista.recorrer(os);
+  return lista.recorrer_imprimiendo(os);
 }
 #endif
