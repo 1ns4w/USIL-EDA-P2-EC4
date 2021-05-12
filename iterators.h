@@ -5,7 +5,7 @@
 #include <iostream>
 #include <vector>
 #include <Container>
-#include "type.h"
+#include <types.h>
 
 template <typename Iterator>
 void recorrer1(Iterator begin, Iterator end, ostream &os)
@@ -13,7 +13,7 @@ void recorrer1(Iterator begin, Iterator end, ostream &os)
 	while (begin != end) 
   {
 		os << *begin << endl;
-		++begin;
+		++begin; 
 	}
 }
 
@@ -25,7 +25,7 @@ void recorrer2(Iterator begin, Iterator end, OF &of)
 }
 
 template <typename Iterator, typename OF, typename Extra>
-void recorrer3(Iterator begin, Iterator end, OF &of, Extra &extra_param)
+void recorrer3(Iterator begin, Iterator end, OF &&of, Extra &extra_param)
 {
 	while (begin != end)
 		of(*begin, extra_param);
