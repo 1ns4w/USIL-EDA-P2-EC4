@@ -1,11 +1,14 @@
 #ifndef __LINKEDLIST_H__
 #define __LINKEDLIST_H__
 
+
 #include "traits.h"
 // #include
 // #include <vector>
 using namespace std;
 
+
+  //REALIZADO POR DIEGO PANTA Y LUIS RIVERA
 template <typename Type>
 class LinkedList
 {
@@ -104,7 +107,7 @@ ostream &LinkedList<Type>::recorrer_imprimiendo(ostream &os)
 
 template <typename Type>
 template <typename F>
-void &LinkedList<Type>::recorrer(F &func)
+void LinkedList<Type>::recorrer(F &func)
 {
   auto pNode = m_pRoot;
   while( pNode != nullptr )
@@ -112,7 +115,7 @@ void &LinkedList<Type>::recorrer(F &func)
       func( pNode->getData() );
       pNode = pNode->getpNext();
   }
-  return os; 
+ //ELIMINAR return os; 
 }
 //forma 1
 template <typename Type>
@@ -139,6 +142,6 @@ T &LinkedList<T>::operator[](size_t pos)
 template <typename Type>
 ostream &operator<<(ostream &os, LinkedList<Type> &lista)
 {
-  return lista.recorrer(os);
+  return lista.recorrer_(os);
 }
 #endif
